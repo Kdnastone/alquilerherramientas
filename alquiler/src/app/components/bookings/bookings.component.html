@@ -15,7 +15,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Id Cliente</th>
+                            <th>Id Reserva/th>
                             <th>Nombre del Cliente</th>
                             <th>Celular del Cliente</th>
                             <th>Fecha de Alquiler</th>
@@ -84,7 +84,7 @@
                                     <button class="btn btn-primary" (click)="onEditBooking(item.bookingId)">Editar</button>
                                 </ng-container>
                                 <ng-container *ngIf="editingBooking && editingBooking.bookingId === item.bookingId">
-                                    <button class="btn btn-success" (click)="onSaveBooking()">Guardar</button>
+                                    <button class="btn btn-success" (click)="onSaveChanges()">Guardar</button>
                                     <button class="btn btn-secondary" (click)="onCancelEdit()">Cancelar</button>
                                 </ng-container>
                             </td>

@@ -30,7 +30,7 @@ throw new Error('Method not implemented.');
     if (localBookingData != null) {
       this.bookingList = JSON.parse(localBookingData);
     }
-    this.assignToolNamesToBookings(); // Llamada al método para asignar nombres de herramientas
+    this.assignToolNamesToBookings();
   }
 
   toggleSidePanel() {
@@ -39,7 +39,7 @@ throw new Error('Method not implemented.');
 
   onSaveBooking() {
     if (this.editingBooking && this.editingBooking.id) {
-      const index = this.bookingList.findIndex(booking => booking.id === this.editingBooking.id);
+      const index = this.bookingList.findIndex(booking => booking.bookingId === this.editingBooking.bookingId);
       if (index !== -1) {
         this.bookingList[index] = { ...this.editingBooking };
         localStorage.setItem('rentalBooking', JSON.stringify(this.bookingList));
@@ -60,11 +60,6 @@ throw new Error('Method not implemented.');
     }
   }
 
-  onEditBooking(index: number) {
-    this.editingBooking = { ...this.bookingList[index] };
-    this.isSidePanelVisible = true;
-  }
-
   onResetBooking() {
     this.bookingObj = new Booking();
   }
@@ -83,22 +78,27 @@ throw new Error('Method not implemented.');
     });
   }
 
-  onSaveEditedBooking() {
-    if (this.editingBooking && this.editingBooking.id) {
-      const index = this.bookingList.findIndex(booking => booking.id === this.editingBooking.id);
-      if (index !== -1) {
-        this.bookingList[index] = { ...this.editingBooking };
-        localStorage.setItem('rentalBooking', JSON.stringify(this.bookingList));
-        this.editingBooking = {};         
-        this.isSidePanelVisible = false; // Cerrar el panel de edición después de guardar
-      }
+  onEditBooking(bookingId: number) {
+    const index = this.bookingList.findIndex(booking => booking.bookingId === bookingId);
+    if (index !== -1) {
+        this.editingBooking = { ...this.bookingList[index] };
+        this.isSidePanelVisible = true;
     }
+}
+
+onSaveChanges() {
+  const index = this.bookingList.findIndex(booking => booking.bookingId === this.editingBooking.bookingId);
+  if (index !== -1) {
+      this.bookingList[index] = { ...this.editingBooking };
+      localStorage.setItem('rentalBooking', JSON.stringify(this.bookingList));
+      this.editingBooking = {};
+      this.isSidePanelVisible = false;
   }
+}
 
   onCancelEdit() {
-    this.editingBooking = {}; // Limpiar el objeto de edición
-    this.isSidePanelVisible = false; // Cerrar el panel de edición
+    this.editingBooking = {};
+    this.isSidePanelVisible = false;
   }
 
-  
 }

@@ -12,23 +12,23 @@
     margin: -10px;
 }
 .card-body .row {
-    margin-bottom: 20px; /* Ajustamos el margen entre filas en el cuerpo de la tarjeta */
+    margin-bottom: 20px;
 }
 .card-body .form-group {
-    margin-bottom: 20px; /* Añadimos un margen inferior a los grupos de formulario */
+    margin-bottom: 20px;
 }
 .card-body .row.pt-3 {
     display: flex;
-    justify-content: center; /* Centra los elementos horizontalmente */
+    justify-content: center;
 }
 
 .card-body .row.pt-3 button {
-    margin:  15px; /* Agrega un margen horizontal entre los botones */
+    margin:  15px;
     padding: 10px;
     margin-bottom: 0px;
 }
 .card-body .row.pt-3 .d-inline-block {
-    margin-top: 15px; /* Agregamos un margen superior al contenedor */
+    margin-top: 15px;
 }
 .col-md-6 {
     flex: 1 0 calc(40% - 30px);
