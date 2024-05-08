@@ -15,7 +15,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Id Reserva/th>
+                            <th>Id Reserva</th>
                             <th>Nombre del Cliente</th>
                             <th>Celular del Cliente</th>
                             <th>Fecha de Alquiler</th>
@@ -29,7 +29,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of bookingList; let sr = index">
-                            <td>{{ sr }}</td>
+                            <td>{{ sr + 1 }}</td>
                             <td>
                                 <ng-container *ngIf="!editingBooking || editingBooking.bookingId !== item.bookingId">
                                     {{ item.clientName }}

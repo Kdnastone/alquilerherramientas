@@ -25,7 +25,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of toolList; let sr = index">
-                            <td>{{ sr }}</td>
+                            <td>{{  sr + 1 }}</td>
                             <td>
                                 <ng-container *ngIf="!editingTool || editingTool.toolId !== item.toolId">
                                     {{ item.toolName }}
