@@ -1,0 +1,51 @@
+.card-section {
+    border: 2px solid #5a268a;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px;
+}
+.card-body .row {
+    margin-bottom: 20px; /* Ajustamos el margen entre filas en el cuerpo de la tarjeta */
+}
+.card-body .form-group {
+    margin-bottom: 20px; /* Añadimos un margen inferior a los grupos de formulario */
+}
+.card-body .row.pt-3 {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+}
+
+.card-body .row.pt-3 button {
+    margin:  15px; /* Agrega un margen horizontal entre los botones */
+    padding: 10px;
+    margin-bottom: 0px;
+}
+.card-body .row.pt-3 .d-inline-block {
+    margin-top: 15px; /* Agregamos un margen superior al contenedor */
+}
+.col-md-6 {
+    flex: 1 0 calc(40% - 30px);
+    padding: 20px;
+}
+.col-md-8 {
+    flex: 1 0 calc(60% - 25px);
+    padding: 10px;
+}
+table {
+    border-collapse: collapse; 
+    border: 2px solid #6A5ACD;
+}
+th, td {
+    border: 1px solid #6A5ACD;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}

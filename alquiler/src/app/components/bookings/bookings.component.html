@@ -1,0 +1,188 @@
+<div class="row">
+    <div [className]="isSidePanelVisible ? 'col-md-6' : 'col-md-12'" style="margin-top: 20px; margin-left: 20px; margin-right: 20px">
+        <div class="card card-section">
+            <div class="card-header bg-success">
+                <div class="row">
+                    <div class="col-md-6">
+                        Lista de Reservas de Herramientas
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button class="btn btn-primary" (click)="toggleSidePanel()">Agregar Nuevo Alquiler</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="margin-top: 20px; margin-left: 20px">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id Cliente</th>
+                            <th>Nombre del Cliente</th>
+                            <th>Celular del Cliente</th>
+                            <th>Fecha de Alquiler</th>
+                            <th>Tipo de Alquiler</th>
+                            <th>Duración del Alquiler</th>
+                            <th>Id Herramienta</th>
+                            <th>Nombre de la Herramienta</th>
+                            <th>Cantidad Requerida</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of bookingList; let sr = index">
+                            <td>{{ sr }}</td>
+                            <td>
+                                <ng-container *ngIf="!editingBooking || editingBooking.bookingId !== item.bookingId">
+                                    {{ item.clientName }}
+                                </ng-container>
+                                <input *ngIf="editingBooking && editingBooking.bookingId === item.bookingId" type="text" [(ngModel)]="editingBooking.clientName" class="form-control">
+                            </td>
+                            <td>
+                                <ng-container *ngIf="!editingBooking || editingBooking.bookingId !== item.bookingId">
+                                    {{ item.clientMobile  }}
+                                </ng-container>
+                                <input *ngIf="editingBooking && editingBooking.bookingId === item.bookingId" type="text" [(ngModel)]="editingBooking.clientMobile " class="form-control">
+                            </td>
+                            <td>
+                                <ng-container *ngIf="!editingBooking || editingBooking.bookingId !== item.bookingId">
+                                    {{ item.clientBookingDate }}
+                                </ng-container>
+                                <input *ngIf="editingBooking && editingBooking.bookingId === item.bookingId" type="text" [(ngModel)]="editingBooking.clientBookingDate " class="form-control">
+                            </td>
+                            <td>
+                                <ng-container *ngIf="!editingBooking || editingBooking.bookingId !== item.bookingId">
+                                    {{ item.clientRentType }}
+                                </ng-container>
+                                <input *ngIf="editingBooking && editingBooking.bookingId === item.bookingId" type="text" [(ngModel)]="editingBooking.clientRentType " class="form-control">
+                            </td>
+                            <td>
+                                <ng-container *ngIf="!editingBooking || editingBooking.bookingId !== item.bookingId">
+                                    {{ item.clientRentDuration }}
+                                </ng-container>
+                                <input *ngIf="editingBooking && editingBooking.bookingId === item.bookingId" type="text" [(ngModel)]="editingBooking.clientRentDuration " class="form-control">
+                            </td>
+                            <td>
+                                <ng-container *ngIf="!editingBooking || editingBooking.bookingId !== item.bookingId">
+                                    {{ item.toolId}}
+                                </ng-container>
+                                <input *ngIf="editingBooking && editingBooking.bookingId === item.bookingId" type="text" [(ngModel)]="editingBooking.toolId " class="form-control">
+                            </td>
+                            <td>
+                                <ng-container *ngIf="!editingBooking || editingBooking.bookingId !== item.bookingId">
+                                    {{ item.toolName}}
+                                </ng-container>
+                                <input *ngIf="editingBooking && editingBooking.bookingId === item.bookingId" type="text" [(ngModel)]="editingBooking.toolName" class="form-control">
+                            </td>
+                            <td>
+                                <ng-container *ngIf="!editingBooking || editingBooking.bookingId !== item.bookingId">
+                                    {{ item.clientNumberOfTools}}
+                                </ng-container>
+                                <input *ngIf="editingBooking && editingBooking.bookingId === item.bookingId" type="text" [(ngModel)]="editingBooking.clientNumberOfTools" class="form-control">
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" (click)="onDeleteBooking(sr)">Eliminar</button>
+                                <ng-container *ngIf="!editingBooking || editingBooking.bookingId !== item.bookingId">
+                                    <button class="btn btn-primary" (click)="onEditBooking(item.bookingId)">Editar</button>
+                                </ng-container>
+                                <ng-container *ngIf="editingBooking && editingBooking.bookingId === item.bookingId">
+                                    <button class="btn btn-success" (click)="onSaveBooking()">Guardar</button>
+                                    <button class="btn btn-secondary" (click)="onCancelEdit()">Cancelar</button>
+                                </ng-container>
+                            </td>
+                        </tr>
+                    </tbody>                    
+                </table>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="isSidePanelVisible">
+        <div class="col-md-6" style="margin-top: 20px;">
+            <div class="card card-section">
+                <div class="card-header bg-success">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Reserva de Herramientas (Seleccione una herramienta a la vez)
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-primary" (click)="toggleSidePanel()">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label for="nombre_cliente">Nombre del Cliente</label>
+                                </td>
+                                <td>
+                                    <input type="text" [(ngModel)]="bookingObj.clientName" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="telefono_cliente">Celular del Cliente</label>
+                                </td>
+                                <td>
+                                    <input type="number" maxlength="10" [(ngModel)]="bookingObj.clientMobile" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="fecha_reserva">Fecha de Alquiler</label>
+                                </td>
+                                <td>
+                                    <input type="date" [(ngModel)]="bookingObj.clientBookingDate" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="tipo_alquiler">Tipo de Alquiler</label>
+                                </td>
+                                <td class="align-middle">
+                                    <select class="form-select" [(ngModel)]="bookingObj.clientRentType">
+                                        <option value="Hora">Por Hora</option>
+                                        <option value="Día">Por Día</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="duracion_alquiler">Duración del Alquiler</label>
+                                </td>
+                                <td>
+                                    <input type="number" [(ngModel)]="bookingObj.clientRentDuration" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> 
+                                    <label for="seleccionar_herramienta">Seleccione una Herramienta</label>
+                                </td>
+                                <td class="align-middle">
+                                    <select class="form-select" [(ngModel)]="bookingObj.toolId">
+                                        <option *ngFor="let item of toolList" [value]="item.toolId">{{item.toolName}}</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="cantidad_herramientas">Cantidad de unidades de la herramienta seleccionada para alquilar</label>
+                                </td>
+                                <td>
+                                    <input type="number" [(ngModel)]="bookingObj.clientNumberOfTools" class="form-control">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row pt-3">
+                        <div class="col-md-12 text-center">
+                            <div class="d-inline-block"> 
+                                <button class="btn btn-secondary me-2" (click)="onResetBooking()">Reiniciar</button>
+                                <button class="btn btn-secondary" (click)="onSaveBooking()">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,132 @@
+<div class="row">
+    <div [className]="isSidePanelVisible ? 'col-md-6' : 'col-md-12'" style="margin-top: 20px; margin-left: 30px">
+        <div class="card card-section">
+            <div class="card-header bg-success">
+                <div class="row">
+                    <div class="col-md-6">
+                        Lista de Herramientas
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button class="btn btn-primary" (click)="toggleSidePanel()">Agregar Nueva Herramienta</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="margin-top: 20px; margin-left: 30px">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id ítem</th>
+                            <th>Herramienta</th>
+                            <th>Alquiler Por Hora (COP)</th>
+                            <th>Alquiler Por Día (COP)</th>
+                            <th>Imagen</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of toolList; let sr = index">
+                            <td>{{ sr }}</td>
+                            <td>
+                                <ng-container *ngIf="!editingTool || editingTool.toolId !== item.toolId">
+                                    {{ item.toolName }}
+                                </ng-container>
+                                <input *ngIf="editingTool && editingTool.toolId === item.toolId" type="text" [(ngModel)]="editingTool.toolName" class="form-control">
+                            </td>
+                            <td>
+                                <ng-container *ngIf="!editingTool || editingTool.toolId !== item.toolId">
+                                    {{ item.alquilerPorHora | currency:'COP':'symbol':'1.0-0' }}
+                                </ng-container>
+                                <input *ngIf="editingTool && editingTool.toolId === item.toolId" type="number" [(ngModel)]="editingTool.alquilerPorHora" class="form-control">
+                            </td>
+                            <td>
+                                <ng-container *ngIf="!editingTool || editingTool.toolId !== item.toolId">
+                                    {{ item.alquilerPorDia | currency:'COP':'symbol':'1.0-0' }}
+                                </ng-container>
+                                <input *ngIf="editingTool && editingTool.toolId === item.toolId" type="number" [(ngModel)]="editingTool.alquilerPorDia" class="form-control">
+                            </td>
+                            <td>
+                                <ng-container *ngIf="!editingTool || editingTool.toolId !== item.toolId">
+                                    <img [src]="item.imagenHerramienta" style="width: 50px; height: 50px;"/>
+                                </ng-container>
+                                <input *ngIf="editingTool && editingTool.toolId === item.toolId" type="text" [(ngModel)]="editingTool.imagenHerramienta" class="form-control">
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" (click)="onDeleteTool(sr)">Eliminar</button>
+                                <ng-container *ngIf="!editingTool || editingTool.toolId !== item.toolId">
+                                    <button class="btn btn-primary" (click)="onEditTool(item)">Editar</button>
+                                </ng-container>
+                                <ng-container *ngIf="editingTool && editingTool.toolId === item.toolId">
+                                    <button class="btn btn-success" (click)="onSaveTool()">Guardar</button>
+                                    <button class="btn btn-secondary" (click)="onCancelEdit()">Cancelar</button>
+                                </ng-container>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="isSidePanelVisible">
+        <div class="col-md-6">
+            <div class="card card-section">
+                <div class="card-header bg-success">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Nueva Herramienta
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-primary" (click)="toggleSidePanel()">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label for="nombre_herramienta">Nombre Herramienta</label>
+                                </td>
+                                <td>
+                                    <input type="text" [(ngModel)]="toolObj.toolName" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="imagen_herramienta">Imagen de Herramienta</label>
+                                </td>
+                                <td>
+                                    <input type="text" [(ngModel)]="toolObj.imagenHerramienta" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="alquiler_hora">Alquiler/Hora (COP) $</label>
+                                </td>
+                                <td>
+                                    <input type="number" [(ngModel)]="toolObj.alquilerPorHora" class="form-control">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="alquiler_dia">Alquiler/Día (COP) $</label>
+                                </td>
+                                <td>
+                                    <input type="number" [(ngModel)]="toolObj.alquilerPorDia" class="form-control">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row pt-3">
+                        <div class="col-md-12 text-center">
+                            <div class="d-inline-block"> 
+                                <button class="btn btn-secondary me-2" (click)="onResetTool()">Reiniciar</button>
+                                <button class="btn btn-secondary" (click)="onSaveTool()">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

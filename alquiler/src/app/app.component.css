@@ -1,0 +1,26 @@
+.navbar {
+    background-color: #3e1663; /* Morado oscuro */
+    color: #FFFFFF; /* Letras blancas */
+    padding: 10px;
+  }
+  
+  .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar ul li {
+    display: inline;
+    margin-right: 10px;
+  }
+  
+  .navbar ul li a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .navbar ul li a.active {
+    font-weight: bold;
+  }
+  
