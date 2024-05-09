@@ -38,7 +38,7 @@ throw new Error('Method not implemented.');
   }
 
   onSaveBooking() {
-    if (this.editingBooking && this.editingBooking.id) {
+    if (this.editingBooking && this.editingBooking.bookingId) {
       const index = this.bookingList.findIndex(booking => booking.bookingId === this.editingBooking.bookingId);
       if (index !== -1) {
         this.bookingList[index] = { ...this.editingBooking };
@@ -50,7 +50,9 @@ throw new Error('Method not implemented.');
         const selectedTool = this.toolList.find(tool => tool.toolId === this.bookingObj.toolId);
         if (selectedTool) {
           this.bookingObj.toolName = selectedTool.toolName;
-          this.bookingList.unshift(this.bookingObj);
+          // Crear una nueva instancia de Booking
+          const newBooking = { ...this.bookingObj };
+          this.bookingList.unshift(newBooking);
           localStorage.setItem('rentalBooking', JSON.stringify(this.bookingList));
           this.bookingObj = new Booking(); 
         } else {
@@ -59,6 +61,7 @@ throw new Error('Method not implemented.');
       }
     }
   }
+  
 
   onResetBooking() {
     this.bookingObj = new Booking();
