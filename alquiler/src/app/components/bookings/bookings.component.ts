@@ -82,6 +82,13 @@ throw new Error('Method not implemented.');
     const index = this.bookingList.findIndex(booking => booking.bookingId === bookingId);
     if (index !== -1) {
         this.editingBooking = { ...this.bookingList[index] };
+        // Clonar solo los campos relevantes
+        this.editingBooking = {
+            bookingId: this.editingBooking.bookingId,
+            clientName: this.editingBooking.clientName,
+            clientMobile: this.editingBooking.clientMobile,
+            // Otros campos necesarios
+        };
         this.isSidePanelVisible = true;
     }
 }
